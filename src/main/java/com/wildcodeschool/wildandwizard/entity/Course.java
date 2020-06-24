@@ -1,9 +1,8 @@
 package com.wildcodeschool.wildandwizard.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Course {
@@ -12,6 +11,13 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
+    /*
+    * 3 - Modifier l'entité Course afin d'y ajouter le code nécessaire à la création de sa relation
+    * avec une liste de sorciers : List<Wizard> wizards
+    * */
+    @ManyToMany(mappedBy = "courses")
+    private List<Wizard> wizards = new ArrayList<>(); // + ajout getter/setter
 
     public Course() {
     }
@@ -34,5 +40,13 @@ public class Course {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Wizard> getWizards() {
+        return wizards;
+    }
+
+    public void setWizards(List<Wizard> wizards) {
+        this.wizards = wizards;
     }
 }
